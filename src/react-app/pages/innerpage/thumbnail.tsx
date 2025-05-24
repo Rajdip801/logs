@@ -68,10 +68,7 @@ const Thumbnailcontrol: React.FC = () => {
   };
 
   // Dropdown change handler
-  const handleDropdownChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const post = posts.find(p => String(p.id) === e.target.value);
-    if (post) handleSelectPost(post);
-  };
+  // (Removed unused handleDropdownChange function)
 
   // Handle saving changes to the database
   const handleSave = async () => {
