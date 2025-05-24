@@ -1,66 +1,31 @@
-// src/App.tsx
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import Login from './pages/login';
+import Dashboard from './pages/dashboard';
+import Test from './pages/test';
+import Home from './pages/innerpage/home';
+import Stats from './pages/innerpage/stats';
+import Adscontrol from './pages/innerpage/adscontrol';
+import Thumbnailcontrol from './pages/innerpage/thumbnail';
+import ProtectedRoute from './utils/security';
+import "./style/tailwind.css";
 
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import cloudflareLogo from "./assets/Cloudflare_Logo.svg";
-import honoLogo from "./assets/hono.svg";
-import "./App.css";
+// ProtectedRoute component to restrict access to authenticated users
 
-function App() {
-  const [count, setCount] = useState(0);
-  const [name, setName] = useState("unknown");
-
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-        <a href="https://hono.dev/" target="_blank">
-          <img src={honoLogo} className="logo cloudflare" alt="Hono logo" />
-        </a>
-        <a href="https://workers.cloudflare.com/" target="_blank">
-          <img
-            src={cloudflareLogo}
-            className="logo cloudflare"
-            alt="Cloudflare logo"
-          />
-        </a>
-      </div>
-      <h1>Vite + React + Hono + Cloudflare</h1>
-      <div className="card">
-        <button
-          onClick={() => setCount((count) => count + 1)}
-          aria-label="increment"
-        >
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <div className="card">
-        <button
-          onClick={() => {
-            fetch("/api/")
-              .then((res) => res.json() as Promise<{ name: string }>)
-              .then((data) => setName(data.name));
-          }}
-          aria-label="get name"
-        >
-          Name from API is: {name}
-        </button>
-        <p>
-          Edit <code>worker/index.ts</code> to change the name
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the logos to learn more</p>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard/*" element={<Dashboard />}>
+            <Route path="welcome" element={<Home />} />
+            <Route path="stats" element={<Stats />} />
+            <Route path="adscontrol" element={<Adscontrol />} />
+            <Route path="thumbnails" element={<Thumbnailcontrol />} />
+          </Route>
+        </Route>
+        <Route path="/test" element={<Test />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;

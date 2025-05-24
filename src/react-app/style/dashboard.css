@@ -1,0 +1,33 @@
+.static_dash{
+    width: 100vw;
+    height: 10vh;
+    margin-top: 60px;
+    position: absolute;
+    top: 0; /* This will move it down 20px */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.static_dash span{
+    font-size: 30px;
+    color: #fff;
+}
+.screens{
+    margin-top: calc(60px + 10vh);
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    width: 100vw;
+    overflow-x: hidden;
+}
+@media (max-width: 768px) {
+    .static_dash {
+        margin-top: 60px;
+        height: 10vh;
+        width: 100vw;
+    }
+    .static_dash span {
+        font-size: 24px;
+    }
+}
